@@ -1,0 +1,35 @@
+{% set level = items[0].__lvl %}
+{% set current = level %}
+{% set count = 0 %}
+{% if items.count %}
+<ul class="nav navbar-nav">
+
+    {% for key, item in items %}
+
+    {% set current = item.__lvl %}
+    {% if current == level %}
+    {% if count > 0 %}</li>{% endif %}
+    {% endif %}
+
+    {% if current > level %}
+    <ul class="dropdown-menu" role="menu">
+    {% set level = current %}
+    {% endif %}
+
+    {% if current < level %}
+    {{"</li></ul>"|repeat(level-current)|raw}}</li>
+    {% set level = current %}
+    {% endif %}
+
+    <li data-id="{{item.Pk}}"{% if item.hasChildren %} class="dropdown"{% endif %}>
+        <a href="{{item.url}}"{% if item.hasChildren %} class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"{% endif %}>
+            {{item.title}}{% if item.hasChildren %} <span class="caret"></span>{% endif %}
+        </a>
+
+    {% set count = count + 1 %}
+    {% endfor %}
+
+    {{"</li></ul>"|repeat(current)|raw}}</li>
+
+</ul>
+{% endif %}

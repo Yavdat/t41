@@ -1,0 +1,37 @@
+{% extends 'Admin/Blank.html' %}
+{% import 'Admin/Macros/Tree.html' as Tree %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li><a href="/admin/">Админ-панель</a></li>
+    <li>Страницы</li>
+</ol>
+{% endblock %}
+
+{% block toolbar %}
+<a class="btn btn-primary" href="/admin/pages/edit?id=new"><i class="glyphicon glyphicon-plus-sign"></i> Добавить страницу</a>
+{% endblock %}
+
+{% block header %}
+Страницы
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    {{ Tree.listSortable(items, '/admin/pages/') }}
+</div>
+{% endblock %}
+
+{% block pagescript %}
+<script type="text/javascript">
+    $(function() {
+
+        $('a.confirmable').click(function() {
+            return confirm('Вы уверены?');
+        });
+
+        {{ Tree.listSortableJs('/admin/pages/') }}
+    });
+</script>
+{% endblock %}
+

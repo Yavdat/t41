@@ -1,0 +1,5 @@
+<h2><a href="/news/{{item.Pk}}.html">{{item.title}}</a></h2>
+<div class="clearfix">
+    {% if item.image %}<img src="{{item.image}}" class="pull-left img-responsive" style="max-width: 200px; max-height: 300px; margin-right: 10px !important;">{% endif %}
+    {{item.lead|raw}}
+</div>
